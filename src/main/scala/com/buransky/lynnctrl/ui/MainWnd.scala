@@ -1,5 +1,7 @@
 package com.buransky.lynnctrl.ui
 
+import java.awt.Frame
+
 import akka.actor.typed.Behavior
 import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
 
@@ -8,11 +10,12 @@ import scala.swing._
 object MainWnd {
   def apply(): Behavior[Nothing] =
     Behaviors.setup[Nothing] { context =>
-      val frame = initFrame()
-      new MainWnd(frame, context)
+      context.spawn[Nothing](Dashboard(), "dashboard")
+      initFrame()
+      new MainWnd(context)
     }
 
-  private def initFrame(): Frame = {
+  private def initFrame(): MainFrame = {
     new MainFrame {
       title = "Lynn Controller"
       menuBar = initMenuBar()
@@ -32,6 +35,6 @@ object MainWnd {
   }
 }
 
-class MainWnd(frame: Frame, context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](context) {
+class MainWnd(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](context) {
   override def onMessage(msg: Nothing): Behavior[Nothing] = Behaviors.unhandled
 }

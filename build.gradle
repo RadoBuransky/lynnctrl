@@ -1,11 +1,13 @@
 plugins {
     id 'scala'
+    id 'java'
 }
 
 group 'com.buransky'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
