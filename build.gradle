@@ -11,6 +11,9 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://www.dcm4che.org/maven2/'
+    }
 }
 
 dependencies {
@@ -20,6 +23,7 @@ dependencies {
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     compile group: 'org.scala-lang.modules', name: 'scala-swing_2.13', version: '2.1.1'
+    compile group: 'xuggle', name: 'xuggle-xuggler', version: '5.4'
 
     testCompile group: 'org.scalatest', name: 'scalatest_2.13', version: '3.1.0'
     testCompile group: 'com.typesafe.akka', name: 'akka-testkit_2.13', version: '2.6.1'

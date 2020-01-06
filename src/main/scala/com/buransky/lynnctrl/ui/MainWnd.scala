@@ -10,7 +10,7 @@ import scala.swing._
 object MainWnd {
   def apply(): Behavior[Nothing] =
     Behaviors.setup[Nothing] { context =>
-      context.spawn[Nothing](Dashboard(), "dashboard")
+      //context.spawn[Nothing](Dashboard(), "dashboard")
       initFrame()
       new MainWnd(context)
     }
