@@ -2,8 +2,9 @@ package com.buransky.lynnctrl.ui
 
 import java.awt.Frame
 
-import akka.actor.typed.Behavior
+import akka.actor.typed.{Behavior, PostStop, Signal}
 import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
+import com.buransky.lynnctrl.media.VlcPlayer
 
 import scala.swing._
 
@@ -11,8 +12,10 @@ object MainWnd {
   def apply(): Behavior[Nothing] =
     Behaviors.setup[Nothing] { context =>
       //context.spawn[Nothing](Dashboard(), "dashboard")
-      initFrame()
-      new MainWnd(context)
+      val mainFrame = initFrame()
+      val vlcPlayer = new VlcPlayer()
+      vlcPlayer.play(mainFrame.peer)
+      new MainWnd(mainFrame, context)
     }
 
   private def initFrame(): MainFrame = {
@@ -35,6 +38,8 @@ object MainWnd {
   }
 }
 
-class MainWnd(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](context) {
+class MainWnd(mainFrame: MainFrame,
+              context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](context) {
+
   override def onMessage(msg: Nothing): Behavior[Nothing] = Behaviors.unhandled
 }
